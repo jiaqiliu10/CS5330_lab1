@@ -10,4 +10,4 @@ pinned: false
 short_description: CS5330 lab1
 ---
 
-Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
+Hugging Face Spaces Demo Link: https://huggingface.co/spaces/jiaqiliuu/Jiaqiliu
