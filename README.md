@@ -11,3 +11,4 @@ short_description: CS5330 lab1
 ---
 
 Hugging Face Spaces Demo Link: https://huggingface.co/spaces/jiaqiliuu/Jiaqiliu
+Please try to use Python3 app.py in the terminal.
