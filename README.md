@@ -1,13 +1,12 @@
 ---
-title: JiaqiLiu/PingqiAn
-emoji: 😻
-colorFrom: gray
-colorTo: yellow
+title: CS5330lab1
+emoji: 🚀
+colorFrom: yellow
+colorTo: indigo
 sdk: gradio
-sdk_version: 4.44.0
+sdk_version: 4.44.1
 app_file: app.py
 pinned: false
-short_description: CS5330 lab1
 ---
 
 Hugging Face Spaces Demo Link: https://huggingface.co/spaces/jiaqiliuu/CS5330lab1
