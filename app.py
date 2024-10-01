@@ -92,7 +92,7 @@ css_custom = """
 
 # Create Gradio interface and apply custom CSS styles
 ascii_interface = gr.Interface(
-    # enerate ASCII art and provide download
+    # Generate ASCII art and provide download
     fn=generate_ascii_and_download,
     # Image input in 'PIL' format
     inputs=gr.Image(type="pil"),
