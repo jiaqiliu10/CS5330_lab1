@@ -37,7 +37,7 @@ def pixels_to_ascii(img_data, max_width=100):
 
     # Initializes an empty list for storing the generated ASCII art lines
     ascii_art_result = []
-    i= 0
+    i = 0
     # Using a while loop to iterate through each row of the image
     while i < len(scaled_image):
         row = scaled_image[i]
@@ -55,6 +55,20 @@ def pixels_to_ascii(img_data, max_width=100):
     # Return the final ASCII art joined with newlines
     return "\n".join(ascii_art_result)
 
+# Calculate brightness difference between original and ASCII image
+def calculate_brightness_difference(original_img, ascii_img_content):
+    original_brightness = np.mean(original_img)
+    
+    # Map ASCII characters to brightness levels
+    ascii_brightness = []
+    for line in ascii_img_content.splitlines():
+        ascii_brightness.extend([ASCII_SYMBOLS.index(char) * 25 for char in line])
+    
+    # Calculate the average brightness of the ASCII art
+    ascii_brightness_avg = np.mean(ascii_brightness)
+    
+    # Return the brightness difference
+    return abs(original_brightness - ascii_brightness_avg)
 
 # Convert the input img to ASCII art
 def generate_ascii_art(img):
@@ -72,11 +86,12 @@ def save_ascii_file(ascii_content):
         file.write(ascii_content)
     return "ascii_art_output.txt"
 
-# Provides the ability to download ASCII art
-def generate_ascii_and_download(img):
+# Provides the ability to download ASCII art and evaluates brightness difference
+def generate_ascii_and_evaluate(img):
     ascii_art_content = generate_ascii_art(img)
+    brightness_diff = calculate_brightness_difference(convert_to_grayscale(img), ascii_art_content)
     download_link = save_ascii_file(ascii_art_content)
-    return ascii_art_content, download_link
+    return ascii_art_content, f"Brightness Difference: {brightness_diff:.2f}", download_link
 
 # Define CSS styles to ensure ASCII art output areas have equal width fonts and are properly aligned
 css_custom = """
@@ -92,15 +107,15 @@ css_custom = """
 
 # Create Gradio interface and apply custom CSS styles
 ascii_interface = gr.Interface(
-    # Generate ASCII art and provide download
-    fn=generate_ascii_and_download,
+    # Generate ASCII art and evaluate brightness difference, also provide download
+    fn=generate_ascii_and_evaluate,
     # Image input in 'PIL' format
     inputs=gr.Image(type="pil"),
-    # ASCII art display and downloadable file
-    outputs=[gr.HTML(label="ASCII Art Display", elem_classes="ascii-container"), "file"],
+    # ASCII art display, brightness evaluation, and downloadable file
+    outputs=[gr.HTML(label="ASCII Art Display", elem_classes="ascii-container"), "text", "file"],
     # File title and description
-    title="ASCII Art Converter",
-    description="Upload an image to convert it into ASCII art and download the result.",
+    title="ASCII Art Converter with Brightness Evaluation",
+    description="Upload an image to convert it into ASCII art and evaluate the brightness difference.",
     css=css_custom
 )
 
